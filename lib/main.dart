@@ -1,19 +1,23 @@
+import 'package:flutter_demo/ui/views/home_view.dart';
+import 'package:flutter_demo/ui/views/login_view.dart';
 import 'package:flutter/material.dart';
+import 'service_locator.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  //setup locator
+  setupLocator();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        theme: ThemeData(primaryColor: Colors.teal[800]),
-        home: Scaffold(
-          appBar: AppBar(
-            title: Text('Word pair generator'),
-          ),
-          body: Center(
-            child: Text('Hello World'),
-          ),
-        ));
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: LoginView(),
+    );
   }
 }
