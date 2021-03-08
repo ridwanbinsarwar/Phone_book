@@ -1,8 +1,7 @@
 import 'package:flutter_demo/core/scoped_models/home_model.dart';
 import 'package:flutter_demo/enums/view_state.dart';
 import 'package:flutter_demo/ui/views/base_view.dart';
-import 'package:flutter_demo/ui/views/error_view.dart';
-import 'package:flutter_demo/ui/views/success_view.dart';
+import 'package:flutter_demo/ui/views/registration_view.dart';
 import 'package:flutter_demo/ui/widgets/busy_overlay.dart';
 import 'package:flutter/material.dart';
 
@@ -26,11 +25,12 @@ class HomeView extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) =>
-                            SuccessView(title: "Passed in from home")));
+                        builder: (context) => RegistrationView()));
               } else {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ErrorView()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => RegistrationView()));
               }
             },
             child: Icon(Icons.navigation_rounded),

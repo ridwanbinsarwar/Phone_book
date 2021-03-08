@@ -1,5 +1,5 @@
 import 'package:flutter_demo/ui/views/home_view.dart';
-import 'package:flutter_demo/ui/views/login_view.dart';
+import 'package:flutter_demo/ui/views/registration_view.dart';
 import 'package:flutter/material.dart';
 import 'service_locator.dart';
 
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: LoginView(),
+      home: RegistrationView(),
     );
   }
 }

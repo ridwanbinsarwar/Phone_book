@@ -1,12 +1,12 @@
-import 'package:flutter_demo/core/scoped_models/login_model.dart';
 import 'package:flutter_demo/core/scoped_models/registration_model.dart';
 import 'package:flutter_demo/ui/views/base_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_demo/ui/views/login_view.dart';
 import 'package:flutter_demo/ui/widgets/formInputField.dart';
 import 'package:flutter_demo/ui/widgets/submit_button.dart';
 import 'package:flutter_demo/utils/database_helper.dart';
 
-class LoginView extends StatelessWidget {
+class RegistrationView extends StatelessWidget {
   TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
   final _formKey = GlobalKey<FormState>();
   DatabaseHelper _databaseHelper = DatabaseHelper.instance;
@@ -15,7 +15,7 @@ class LoginView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BaseView<LoginModel>(
+    return BaseView<RegistraionModel>(
         builder: (context, child, model) => Scaffold(
               body: SingleChildScrollView(
                 child: Center(
@@ -43,12 +43,7 @@ class LoginView extends StatelessWidget {
                               hintText: 'password',
                               hideText: true,
                             ),
-                            Text(
-                              model.isValid
-                                  ? ''
-                                  : 'email and password does not match',
-                              style: TextStyle(color: Colors.red),
-                            ),
+                            Text(model.getPassword()),
                             SizedBox(
                               height: 35.0,
                             ),
@@ -57,15 +52,17 @@ class LoginView extends StatelessWidget {
                                 if (_formKey.currentState.validate()) {
                                   // If the form is valid, display a Snackbar.
                                   _formKey.currentState.save();
-                                  if (await model.login()) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(content: Text('OK')));
-                                  }
-                                } else {
-                                  model.setIsValid(false);
+                                  model.insertUser();
+                                  model.getUsers();
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => LoginView()));
+                                  // ScaffoldMessenger.of(context).showSnackBar(
+                                  //     SnackBar(content: Text('OK')));
                                 }
                               },
-                              text: "Login",
+                              text: "Register",
                             ),
                             SizedBox(
                               height: 15.0,

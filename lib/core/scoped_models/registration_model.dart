@@ -2,7 +2,7 @@ import 'package:flutter_demo/core/models/user.dart';
 import 'package:flutter_demo/utils/database_helper.dart';
 import 'base_model.dart';
 
-class AuthnModel extends BaseModel {
+class RegistraionModel extends BaseModel {
   User user = new User();
   List<User> users;
   DatabaseHelper _databaseHelper = DatabaseHelper.instance;

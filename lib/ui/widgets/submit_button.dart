@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 class SubmitButton extends StatelessWidget {
   final Function validationHandler;
+  final String text;
 
-  const SubmitButton({this.validationHandler});
+  const SubmitButton({this.validationHandler, this.text});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,7 @@ class SubmitButton extends StatelessWidget {
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
         onPressed: validationHandler,
-        child: Text("Login",
+        child: Text(text,
             textAlign: TextAlign.center,
             style: TextStyle(fontFamily: 'Montserrat', fontSize: 20.0)
                 .copyWith(color: Colors.white, fontWeight: FontWeight.bold)),

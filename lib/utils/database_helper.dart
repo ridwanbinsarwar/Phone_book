@@ -48,4 +48,18 @@ class DatabaseHelper {
         ? []
         : contacts.map((x) => User.fromMap(x)).toList();
   }
+
+  Future<bool> isRegistered(String email, String password) async {
+    var dbContact = await database;
+    List<Map> maps = await dbContact.query(User.tblUser,
+        columns: [User.colPassword],
+        where: '${User.colEmail} = ? and ${User.colPassword} = ?',
+        whereArgs: [email, password]);
+
+    if (maps.isNotEmpty) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
