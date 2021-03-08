@@ -62,4 +62,16 @@ class DatabaseHelper {
       return false;
     }
   }
+
+  Future<bool> checkIfEmailExists(String email) async {
+    Database db = await database;
+    List<dynamic> whereargs = [email];
+    List<Map> result = await db.query(User.tblUser,
+        where: '${User.colEmail} = ?', whereArgs: whereargs);
+    if (result.isNotEmpty) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

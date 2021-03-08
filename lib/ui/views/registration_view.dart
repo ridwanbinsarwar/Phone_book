@@ -43,7 +43,6 @@ class RegistrationView extends StatelessWidget {
                               hintText: 'password',
                               hideText: true,
                             ),
-                            Text(model.getPassword()),
                             SizedBox(
                               height: 35.0,
                             ),
@@ -52,14 +51,17 @@ class RegistrationView extends StatelessWidget {
                                 if (_formKey.currentState.validate()) {
                                   // If the form is valid, display a Snackbar.
                                   _formKey.currentState.save();
-                                  model.insertUser();
-                                  model.getUsers();
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => LoginView()));
-                                  // ScaffoldMessenger.of(context).showSnackBar(
-                                  //     SnackBar(content: Text('OK')));
+                                  if (await model.insertUser()) {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => LoginView()));
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(
+                                            content:
+                                                Text('Email already exist')));
+                                  }
                                 }
                               },
                               text: "Register",

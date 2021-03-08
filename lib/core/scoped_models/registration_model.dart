@@ -31,8 +31,12 @@ class RegistraionModel extends BaseModel {
     notifyListeners();
   }
 
-  void insertUser() async {
-    await _databaseHelper.insertUser(user);
+  Future<bool> insertUser() async {
+    if (await _databaseHelper.checkIfEmailExists(user.email) == false) {
+      await _databaseHelper.insertUser(user);
+      return true;
+    }
+    return false;
   }
 
   void getUsers() async {

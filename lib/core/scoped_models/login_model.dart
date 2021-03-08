@@ -4,16 +4,10 @@ import 'base_model.dart';
 
 class LoginModel extends BaseModel {
   User user = new User();
-  bool isValid = true;
   DatabaseHelper _databaseHelper = DatabaseHelper.instance;
 
   void setEmail(value) {
     user.email = value;
-    notifyListeners();
-  }
-
-  void setIsValid(value) {
-    isValid = value;
     notifyListeners();
   }
 
