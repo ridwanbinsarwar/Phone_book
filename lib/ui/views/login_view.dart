@@ -43,12 +43,6 @@ class LoginView extends StatelessWidget {
                               hintText: 'password',
                               hideText: true,
                             ),
-                            Text(
-                              model.isValid
-                                  ? ''
-                                  : 'email and password does not match',
-                              style: TextStyle(color: Colors.red),
-                            ),
                             SizedBox(
                               height: 35.0,
                             ),
@@ -60,9 +54,14 @@ class LoginView extends StatelessWidget {
                                   if (await model.login()) {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                         SnackBar(content: Text('OK')));
+                                  } else {
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(SnackBar(
+                                      content:
+                                          Text('Email password does not match'),
+                                      backgroundColor: Colors.red[300],
+                                    ));
                                   }
-                                } else {
-                                  model.setIsValid(false);
                                 }
                               },
                               text: "Login",
