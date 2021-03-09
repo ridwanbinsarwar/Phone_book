@@ -25,7 +25,7 @@ class LoginModel extends BaseModel {
       return 'empty';
   }
 
-  Future<bool> login() async {
+  Future<int> login() async {
     return await _databaseHelper.isRegistered(user.email, user.password);
   }
 

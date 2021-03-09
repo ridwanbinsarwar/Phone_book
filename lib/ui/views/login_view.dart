@@ -2,9 +2,11 @@ import 'package:flutter_demo/core/scoped_models/login_model.dart';
 import 'package:flutter_demo/core/scoped_models/registration_model.dart';
 import 'package:flutter_demo/ui/views/base_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_demo/ui/views/registration_view.dart';
 import 'package:flutter_demo/ui/widgets/formInputField.dart';
 import 'package:flutter_demo/ui/widgets/submit_button.dart';
 import 'package:flutter_demo/utils/database_helper.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginView extends StatelessWidget {
   TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
@@ -29,7 +31,7 @@ class LoginView extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            SizedBox(height: 45.0),
+                            SizedBox(height: 165.0),
                             InputField(
                               validationHandler: _emailValidator,
                               onSaveHandler: ((value) => model.setEmail(value)),
@@ -51,9 +53,11 @@ class LoginView extends StatelessWidget {
                                 if (_formKey.currentState.validate()) {
                                   // If the form is valid, display a Snackbar.
                                   _formKey.currentState.save();
-                                  if (await model.login()) {
+                                  int userID = await model.login();
+                                  if (userID != -1) {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                         SnackBar(content: Text('OK')));
+                                    _setUser(userID);
                                   } else {
                                     ScaffoldMessenger.of(context)
                                         .showSnackBar(SnackBar(
@@ -69,6 +73,23 @@ class LoginView extends StatelessWidget {
                             SizedBox(
                               height: 15.0,
                             ),
+                            MaterialButton(
+                              child: Text(
+                                'Register',
+                                style: TextStyle(
+                                  color: Colors.blueAccent,
+                                ),
+                              ),
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            RegistrationView()));
+                              },
+                              minWidth: double.infinity,
+                              color: Colors.white,
+                            )
                           ],
                         ),
                       ),
@@ -79,6 +100,13 @@ class LoginView extends StatelessWidget {
             ));
   }
 
+  void _setUser(userID) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('userID', userID);
+    int user = (prefs.getInt('userID') ?? -1);
+    print(user);
+  }
+
   String _emailValidator(value) {
     if (value.isEmpty) {
       return 'Please enter valid email';
@@ -86,8 +114,6 @@ class LoginView extends StatelessWidget {
     return null;
   }
 
-  // void _emailFieldBinding(value) => email = value;
-  // void _passFieldBinding(value) => pass = value;
   String _passValidator(value) {
     if (value.isEmpty) {
       return 'Password can\'t be empty';

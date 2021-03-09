@@ -29,7 +29,7 @@ class RegistrationView extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            SizedBox(height: 45.0),
+                            SizedBox(height: 165.0),
                             InputField(
                               validationHandler: _emailValidator,
                               onSaveHandler: ((value) => model.setEmail(value)),
@@ -69,6 +69,22 @@ class RegistrationView extends StatelessWidget {
                             SizedBox(
                               height: 15.0,
                             ),
+                            MaterialButton(
+                              child: Text(
+                                'Login',
+                                style: TextStyle(
+                                  color: Colors.blueAccent,
+                                ),
+                              ),
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => LoginView()));
+                              },
+                              minWidth: double.infinity,
+                              color: Colors.white,
+                            )
                           ],
                         ),
                       ),
