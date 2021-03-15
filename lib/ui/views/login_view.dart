@@ -2,6 +2,7 @@ import 'package:flutter_demo/core/scoped_models/login_model.dart';
 import 'package:flutter_demo/core/scoped_models/registration_model.dart';
 import 'package:flutter_demo/ui/views/base_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_demo/ui/views/home_view.dart';
 import 'package:flutter_demo/ui/views/registration_view.dart';
 import 'package:flutter_demo/ui/widgets/formInputField.dart';
 import 'package:flutter_demo/ui/widgets/submit_button.dart';
@@ -58,6 +59,10 @@ class LoginView extends StatelessWidget {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                         SnackBar(content: Text('OK')));
                                     _setUser(userID);
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => HomeView()));
                                   } else {
                                     ScaffoldMessenger.of(context)
                                         .showSnackBar(SnackBar(

@@ -1,3 +1,4 @@
+import 'package:flutter_demo/core/scoped_models/contactForm_model.dart';
 import 'package:flutter_demo/core/scoped_models/login_model.dart';
 import 'package:get_it/get_it.dart';
 import 'core/scoped_models/registration_model.dart';
@@ -14,4 +15,5 @@ void setupLocator() {
   locator.registerFactory<HomeModel>(() => HomeModel());
   locator.registerFactory<RegistraionModel>(() => RegistraionModel());
   locator.registerFactory<LoginModel>(() => LoginModel());
+  locator.registerFactory<ContactFormModel>(() => ContactFormModel());
 }

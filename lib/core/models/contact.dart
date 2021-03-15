@@ -1,24 +1,68 @@
-class User {
-  static const tblUser = 'user';
-  static const colId = 'id';
-  static const colEmail = 'email';
-  static const colPassword = 'password';
+class Contact {
+  int contact_id;
+  int user_id;
+  String address;
 
-  int id;
-  String email;
-  String password;
-
-  User();
-  User.init(this.email, this.password);
-  User.fromMap(Map<String, dynamic> map) {
-    id = map[colId];
-    email = map[colEmail];
-    password = map[colPassword];
+  Contact();
+  Contact.fromMap(Map<String, dynamic> map) {
+    contact_id = map['contact_id'];
+    user_id = map['user_id'];
+    address = map['address'];
   }
 
   Map<String, dynamic> toMap() {
-    var map = <String, dynamic>{colEmail: email, colPassword: password};
-    if (id != null) map[colId] = id;
+    var map = <String, dynamic>{
+      'contact_id': contact_id,
+      'user_id': user_id,
+      'address': address
+    };
+    if (contact_id != null) map['contact_id'] = contact_id;
+    return map;
+  }
+}
+
+class Email {
+  int email_id;
+  int contact_id;
+  String email;
+
+  Email();
+  Email.fromMap(Map<String, dynamic> map) {
+    contact_id = map['contact_id'];
+    email_id = map['email_id'];
+    email = map['email'];
+  }
+
+  Map<String, dynamic> toMap() {
+    var map = <String, dynamic>{
+      'contact_id': contact_id,
+      'email_id': email_id,
+      'email': email
+    };
+    if (email_id != null) map['email_id'] = email_id;
+    return map;
+  }
+}
+
+class Phone {
+  int phone_id;
+  int contact_id;
+  String phone;
+
+  Phone();
+  Phone.fromMap(Map<String, dynamic> map) {
+    contact_id = map['contact_id'];
+    phone_id = map['phone_id'];
+    phone = map['phone'];
+  }
+
+  Map<String, dynamic> toMap() {
+    var map = <String, dynamic>{
+      'contact_id': contact_id,
+      'phone_id': phone_id,
+      'phone': phone
+    };
+    if (phone_id != null) map['phone_id'] = phone_id;
     return map;
   }
 }
