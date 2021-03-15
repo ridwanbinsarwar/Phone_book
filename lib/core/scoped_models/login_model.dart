@@ -1,6 +1,6 @@
 import 'package:flutter_demo/core/models/user.dart';
+import 'package:flutter_demo/core/scoped_models/base_model.dart';
 import 'package:flutter_demo/utils/database_helper.dart';
-import 'base_model.dart';
 
 class LoginModel extends BaseModel {
   User user = new User();

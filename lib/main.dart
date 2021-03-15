@@ -1,7 +1,6 @@
-import 'package:flutter_demo/ui/views/home_view.dart';
+import 'package:flutter_demo/service_locator.dart';
 import 'package:flutter_demo/ui/views/registration_view.dart';
 import 'package:flutter/material.dart';
-import 'service_locator.dart';
 
 void main() {
   //setup locator

@@ -1,4 +1,6 @@
 import 'package:flutter_demo/core/models/contact.dart';
+import 'package:flutter_demo/core/scoped_models/home_model.dart';
+import 'package:flutter_demo/service_locator.dart';
 import 'package:flutter_demo/utils/database_helper.dart';
 import 'base_model.dart';
 
@@ -19,6 +21,18 @@ class ContactFormModel extends BaseModel {
     } else
       return 'empty';
   }
+
+  void setName(value) {
+    contact.name = value;
+    notifyListeners();
+  }
+
+  // String getEmail() {
+  //   if (email.email != null) {
+  //     return email.email;
+  //   } else
+  //     return 'empty';
+  // }
 
   void setPhone(value) {
     phone.phone = value;
@@ -47,6 +61,12 @@ class ContactFormModel extends BaseModel {
   Future<int> addContact(id) async {
     contact.user_id = id;
     await _databaseHelper.fetchContactsByUser(id);
-    return await _databaseHelper.insertContact(contact, email, phone);
+
+    int res = await _databaseHelper.insertContact(contact, email, phone);
+    if (res != -1) {
+      var myAppModel = locator<HomeModel>();
+      myAppModel.addContact(contact);
+    }
+    return res;
   }
 }

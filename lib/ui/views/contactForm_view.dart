@@ -23,6 +23,12 @@ class ContactFormView extends StatelessWidget {
               _getBodyUi(model.state),
               SizedBox(height: 165.0),
               InputField(
+                validationHandler: _defaultValidator,
+                onSaveHandler: ((value) => model.setName(value)),
+                hintText: "Name",
+              ),
+              SizedBox(height: 25.0),
+              InputField(
                 validationHandler: _emailValidator,
                 onSaveHandler: ((value) => model.setEmail(value)),
                 hintText: "Email",

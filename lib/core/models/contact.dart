@@ -2,19 +2,22 @@ class Contact {
   int contact_id;
   int user_id;
   String address;
+  String name;
 
   Contact();
   Contact.fromMap(Map<String, dynamic> map) {
     contact_id = map['contact_id'];
     user_id = map['user_id'];
     address = map['address'];
+    name = map['name'];
   }
 
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{
       'contact_id': contact_id,
       'user_id': user_id,
-      'address': address
+      'address': address,
+      'name': name
     };
     if (contact_id != null) map['contact_id'] = contact_id;
     return map;
