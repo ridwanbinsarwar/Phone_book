@@ -8,6 +8,7 @@ import 'package:flutter_demo/utils/database_helper.dart';
 class HomeModel extends BaseModel {
   StorageService storageService = locator<StorageService>();
   String title = "";
+  bool loaded = false;
 
   List<BaseContact> contacts = [];
   DatabaseHelper _databaseHelper = DatabaseHelper.instance;
@@ -15,11 +16,10 @@ class HomeModel extends BaseModel {
   void getContacts(Future<int> id) async {
     int userId = await id;
     List<Map> data = await _databaseHelper.fetchContactsByUser(userId);
-    setTitle("setter");
     for (var contact in data) {
       contacts.add(BaseContact.contact(new Contact.fromMap(contact)));
     }
-    print(contacts[2].contact.name);
+    loaded = true;
     notifyListeners();
   }
 

@@ -20,13 +20,12 @@ class _HomePageState extends State<HomeView> {
   @override
   void initState() {
     super.initState();
-    // _getAllContacts();
+    var myAppModel = locator<HomeModel>();
+    if (!myAppModel.loaded) myAppModel.getContacts(_getUser());
   }
 
   @override
   Widget build(BuildContext context) {
-    var myAppModel = locator<HomeModel>();
-    myAppModel.getContacts(_getUser());
     return BaseView<HomeModel>(
       builder: (context, child, model) => Scaffold(
         body: ListView.builder(
