@@ -5,6 +5,7 @@ import 'package:flutter_demo/ui/views/login_view.dart';
 import 'package:flutter_demo/ui/widgets/formInputField.dart';
 import 'package:flutter_demo/ui/widgets/submit_button.dart';
 import 'package:flutter_demo/utils/database_helper.dart';
+import 'package:flutter_demo/utils/validators.dart';
 
 class RegistrationView extends StatelessWidget {
   TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
@@ -31,13 +32,13 @@ class RegistrationView extends StatelessWidget {
                           children: <Widget>[
                             SizedBox(height: 165.0),
                             InputField(
-                              validationHandler: _emailValidator,
+                              validationHandler: Validator.emailValidator,
                               onSaveHandler: ((value) => model.setEmail(value)),
                               hintText: "Email",
                             ),
                             SizedBox(height: 25.0),
                             InputField(
-                              validationHandler: _passValidator,
+                              validationHandler: Validator.passValidator,
                               onSaveHandler: ((value) =>
                                   model.setPassword(value)),
                               hintText: 'password',
@@ -93,21 +94,5 @@ class RegistrationView extends StatelessWidget {
                 ),
               ),
             ));
-  }
-
-  String _emailValidator(value) {
-    if (value.isEmpty) {
-      return 'Please enter valid email';
-    }
-    return null;
-  }
-
-  // void _emailFieldBinding(value) => email = value;
-  // void _passFieldBinding(value) => pass = value;
-  String _passValidator(value) {
-    if (value.isEmpty) {
-      return 'Password can\'t be empty';
-    }
-    return null;
   }
 }

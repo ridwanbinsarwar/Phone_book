@@ -1,5 +1,6 @@
 import 'package:flutter_demo/core/models/contact.dart';
 import 'package:flutter_demo/core/scoped_models/home_model.dart';
+import 'package:flutter_demo/core/services/database_query_service.dart';
 import 'package:flutter_demo/service_locator.dart';
 import 'package:flutter_demo/utils/database_helper.dart';
 import 'base_model.dart';
@@ -8,7 +9,7 @@ class ContactFormModel extends BaseModel {
   Contact contact = new Contact();
   Email email = new Email();
   Phone phone = new Phone();
-  DatabaseHelper _databaseHelper = DatabaseHelper.instance;
+  DatabaseQueryService _databaseHelper = locator<DatabaseQueryService>();
 
   void setEmail(value) {
     email.email = value;
@@ -65,7 +66,8 @@ class ContactFormModel extends BaseModel {
     int res = await _databaseHelper.insertContact(contact, email, phone);
     if (res != -1) {
       var myAppModel = locator<HomeModel>();
-      myAppModel.addContact(contact);
+      contact.contact_id = res;
+      // myAppModel.addContact(contact);
     }
     return res;
   }

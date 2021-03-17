@@ -1,10 +1,12 @@
 import 'package:flutter_demo/core/models/user.dart';
 import 'package:flutter_demo/core/scoped_models/base_model.dart';
+import 'package:flutter_demo/core/services/database_query_service.dart';
+import 'package:flutter_demo/service_locator.dart';
 import 'package:flutter_demo/utils/database_helper.dart';
 
 class LoginModel extends BaseModel {
   User user = new User();
-  DatabaseHelper _databaseHelper = DatabaseHelper.instance;
+  DatabaseQueryService _databaseHelper = locator<DatabaseQueryService>();
 
   void setEmail(value) {
     user.email = value;

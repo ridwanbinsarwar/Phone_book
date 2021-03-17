@@ -7,6 +7,7 @@ import 'package:flutter_demo/ui/views/registration_view.dart';
 import 'package:flutter_demo/ui/widgets/formInputField.dart';
 import 'package:flutter_demo/ui/widgets/submit_button.dart';
 import 'package:flutter_demo/utils/database_helper.dart';
+import 'package:flutter_demo/utils/validators.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginView extends StatelessWidget {
@@ -34,13 +35,13 @@ class LoginView extends StatelessWidget {
                           children: <Widget>[
                             SizedBox(height: 165.0),
                             InputField(
-                              validationHandler: _emailValidator,
+                              validationHandler: Validator.emailValidator,
                               onSaveHandler: ((value) => model.setEmail(value)),
                               hintText: "Email",
                             ),
                             SizedBox(height: 25.0),
                             InputField(
-                              validationHandler: _passValidator,
+                              validationHandler: Validator.passValidator,
                               onSaveHandler: ((value) =>
                                   model.setPassword(value)),
                               hintText: 'password',
@@ -108,21 +109,5 @@ class LoginView extends StatelessWidget {
   void _setUser(userID) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setInt('userID', userID);
-    int user = (prefs.getInt('userID') ?? -1);
-    print(user);
-  }
-
-  String _emailValidator(value) {
-    if (value.isEmpty) {
-      return 'Please enter valid email';
-    }
-    return null;
-  }
-
-  String _passValidator(value) {
-    if (value.isEmpty) {
-      return 'Password can\'t be empty';
-    }
-    return null;
   }
 }

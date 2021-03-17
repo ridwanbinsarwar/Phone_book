@@ -5,6 +5,7 @@ import 'package:flutter_demo/service_locator.dart';
 import 'package:flutter_demo/ui/views/base_view.dart';
 import 'package:flutter_demo/ui/views/contactForm_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_demo/ui/views/contact_profile.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io';
@@ -61,19 +62,28 @@ class _HomePageState extends State<HomeView> {
   Widget _contactCard(BuildContext context, int index) {
     var myAppModel = locator<HomeModel>();
 
-    return Card(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(myAppModel.contacts[index].contact.name ?? '',
-              style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold)),
-          Text(myAppModel.contacts[index].contact.address ?? '',
-              style: TextStyle(fontSize: 16.0)),
-          // Text(
-          //   contacts[index].phone ?? '',
-          //   style: TextStyle(fontSize: 18.0)),
-        ],
+    return GestureDetector(
+      child: Card(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(myAppModel.contacts[index].contact.name ?? '',
+                style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold)),
+            Text(myAppModel.contacts[index].contact.address ?? '',
+                style: TextStyle(fontSize: 16.0)),
+            // Text(
+            //   contacts[index].phone ?? '',
+            //   style: TextStyle(fontSize: 18.0)),
+          ],
+        ),
       ),
+      onTap: () async {
+        final recContact = await Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ContactProfileView(
+                    myAppModel.contacts[index].contact.contact_id)));
+      },
     );
   }
 

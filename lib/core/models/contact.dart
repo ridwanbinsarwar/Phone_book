@@ -36,6 +36,14 @@ class Email {
     email = map['email'];
   }
 
+  Email.init(String emailIdAndEmail, int contactId) {
+    List l = emailIdAndEmail.split('-');
+
+    contact_id = contactId;
+    email_id = int.tryParse(l[0]);
+    email = l[1];
+  }
+
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{
       'contact_id': contact_id,
@@ -58,7 +66,12 @@ class Phone {
     phone_id = map['phone_id'];
     phone = map['phone'];
   }
-
+  Phone.init(String phoneIdandPhone, int contactId) {
+    List l = phoneIdandPhone.split('-');
+    contact_id = contactId;
+    phone_id = int.tryParse(l[0]);
+    phone = l[1];
+  }
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{
       'contact_id': contact_id,
@@ -67,5 +80,27 @@ class Phone {
     };
     if (phone_id != null) map['phone_id'] = phone_id;
     return map;
+  }
+}
+
+class BaseContact {
+  Contact contact = new Contact();
+  List<Email> emails = [];
+  List<Phone> phones = [];
+  BaseContact();
+  BaseContact.contact(this.contact);
+  BaseContact.fromMap(Map<String, dynamic> map) {
+    contact.contact_id = map['contact_id'];
+    contact.address = map['address'];
+    contact.name = map['name'];
+
+    List l = map['phones'].split(',');
+    for (var item in l) {
+      phones.add(Phone.init(item, map['contact_id']));
+    }
+    List l1 = map['emails'].split(',');
+    for (var item in l1) {
+      emails.add(Email.init(item, map['contact_id']));
+    }
   }
 }

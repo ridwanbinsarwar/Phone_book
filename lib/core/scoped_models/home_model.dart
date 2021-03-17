@@ -1,17 +1,18 @@
 import 'package:flutter_demo/core/models/contact.dart';
 import 'package:flutter_demo/core/scoped_models/base_model.dart';
+import 'package:flutter_demo/core/services/database_query_service.dart';
 import 'package:flutter_demo/core/services/storage_service.dart';
 import 'package:flutter_demo/enums/view_state.dart';
 import 'package:flutter_demo/service_locator.dart';
-import 'package:flutter_demo/utils/database_helper.dart';
 
 class HomeModel extends BaseModel {
   StorageService storageService = locator<StorageService>();
+  DatabaseQueryService _databaseHelper = locator<DatabaseQueryService>();
+
   String title = "";
   bool loaded = false;
 
   List<BaseContact> contacts = [];
-  DatabaseHelper _databaseHelper = DatabaseHelper.instance;
 
   void getContacts(Future<int> id) async {
     int userId = await id;
@@ -45,11 +46,4 @@ class HomeModel extends BaseModel {
   String getTitle() {
     return title;
   }
-}
-
-class BaseContact {
-  Contact contact = new Contact();
-  List<Email> emails = [];
-  List<Phone> phones = [];
-  BaseContact.contact(this.contact);
 }

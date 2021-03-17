@@ -6,6 +6,7 @@ import 'package:flutter_demo/ui/views/home_view.dart';
 import 'package:flutter_demo/ui/views/login_view.dart';
 import 'package:flutter_demo/ui/widgets/formInputField.dart';
 import 'package:flutter_demo/ui/widgets/submit_button.dart';
+import 'package:flutter_demo/utils/validators.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ContactFormView extends StatelessWidget {
@@ -23,19 +24,19 @@ class ContactFormView extends StatelessWidget {
               _getBodyUi(model.state),
               SizedBox(height: 165.0),
               InputField(
-                validationHandler: _defaultValidator,
+                validationHandler: Validator.defaultValidator,
                 onSaveHandler: ((value) => model.setName(value)),
                 hintText: "Name",
               ),
               SizedBox(height: 25.0),
               InputField(
-                validationHandler: _emailValidator,
+                validationHandler: Validator.emailValidator,
                 onSaveHandler: ((value) => model.setEmail(value)),
                 hintText: "Email",
               ),
               SizedBox(height: 25.0),
               InputField(
-                validationHandler: _defaultValidator,
+                validationHandler: Validator.defaultValidator,
                 onSaveHandler: ((value) => model.setAddress(value)),
                 hintText: 'Address',
               ),
@@ -43,7 +44,7 @@ class ContactFormView extends StatelessWidget {
                 height: 35.0,
               ),
               InputField(
-                validationHandler: _defaultValidator,
+                validationHandler: Validator.defaultValidator,
                 onSaveHandler: ((value) => model.setPhone(value)),
                 hintText: 'Phone',
               ),
@@ -73,20 +74,6 @@ class ContactFormView extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  String _emailValidator(value) {
-    if (value.isEmpty) {
-      return 'Please enter valid email';
-    }
-    return null;
-  }
-
-  String _defaultValidator(value) {
-    if (value.isEmpty) {
-      return 'This field cant be empty';
-    }
-    return null;
   }
 
   Future<int> _getUser() async {
