@@ -5,9 +5,7 @@ import 'package:flutter_demo/service_locator.dart';
 
 class HomeModel extends BaseModel {
   DatabaseQueryService _databaseHelper = locator<DatabaseQueryService>();
-
   bool loaded = false;
-
   List<BaseContact> contacts = [];
 
   void getContacts(Future<int> id) async {

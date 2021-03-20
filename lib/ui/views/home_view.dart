@@ -4,10 +4,8 @@ import 'package:flutter_demo/core/services/shared_pred_service.dart';
 import 'package:flutter_demo/enums/view_state.dart';
 import 'package:flutter_demo/service_locator.dart';
 import 'package:flutter_demo/ui/views/base_view.dart';
-import 'package:flutter_demo/ui/views/contactForm_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/ui/widgets/appbar.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeView extends StatefulWidget {
   @override
@@ -40,10 +38,10 @@ class _HomePageState extends State<HomeView> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () async {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => ContactFormView()));
+            Navigator.of(context).pushNamed('addContact');
           },
-          child: Icon(Icons.navigation_rounded),
+          child: Icon(Icons.add),
+          foregroundColor: Colors.white,
           backgroundColor: Colors.green,
         ),
       ),
@@ -118,7 +116,6 @@ class _HomePageState extends State<HomeView> {
                   width: 140.0,
                   child: Text(
                     myAppModel.contacts[index].contact.name,
-                    // textAlign: TextAlign.start,
                     style: TextStyle(fontSize: 22),
                   ),
                 ),

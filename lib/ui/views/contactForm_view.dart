@@ -2,8 +2,6 @@ import 'package:flutter_demo/core/scoped_models/contactForm_model.dart';
 import 'package:flutter_demo/enums/view_state.dart';
 import 'package:flutter_demo/ui/views/base_view.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_demo/ui/views/home_view.dart';
-import 'package:flutter_demo/ui/views/login_view.dart';
 import 'package:flutter_demo/ui/widgets/formInputField.dart';
 import 'package:flutter_demo/ui/widgets/submit_button.dart';
 import 'package:flutter_demo/utils/validators.dart';
@@ -59,11 +57,9 @@ class ContactFormView extends StatelessWidget {
                     int userID = await _getUser();
                     if (userID != -1) {
                       model.addContact(userID);
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => HomeView()));
+                      Navigator.of(context).pushNamed('home');
                     } else {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => LoginView()));
+                      Navigator.of(context).pushNamed('login');
                     }
                   }
                 },
