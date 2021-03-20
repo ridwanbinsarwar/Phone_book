@@ -60,10 +60,9 @@ class LoginView extends StatelessWidget {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                         SnackBar(content: Text('OK')));
                                     _setUser(userID);
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => HomeView()));
+                                    Navigator.of(context).pushNamed(
+                                      'home',
+                                    );
                                   } else {
                                     ScaffoldMessenger.of(context)
                                         .showSnackBar(SnackBar(
@@ -87,11 +86,9 @@ class LoginView extends StatelessWidget {
                                 ),
                               ),
                               onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            RegistrationView()));
+                                Navigator.of(context).pushNamed(
+                                  'signUp',
+                                );
                               },
                               minWidth: double.infinity,
                               color: Colors.white,

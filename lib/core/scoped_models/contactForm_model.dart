@@ -67,7 +67,7 @@ class ContactFormModel extends BaseModel {
     if (res != -1) {
       var myAppModel = locator<HomeModel>();
       contact.contact_id = res;
-      // myAppModel.addContact(contact);
+      myAppModel.addContact(contact);
     }
     return res;
   }

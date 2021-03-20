@@ -5,10 +5,8 @@ import 'package:flutter_demo/service_locator.dart';
 import 'package:flutter_demo/ui/views/base_view.dart';
 import 'package:flutter_demo/ui/views/contactForm_view.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_demo/ui/views/contact_profile.dart';
-import 'package:scoped_model/scoped_model.dart';
+import 'package:flutter_demo/ui/widgets/appbar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:io';
 
 class HomeView extends StatefulWidget {
   @override
@@ -18,10 +16,10 @@ class HomeView extends StatefulWidget {
 class _HomePageState extends State<HomeView> {
   List<Contact> contacts = [];
 
+  var myAppModel = locator<HomeModel>();
   @override
   void initState() {
     super.initState();
-    var myAppModel = locator<HomeModel>();
     if (!myAppModel.loaded) myAppModel.getContacts(_getUser());
   }
 
@@ -29,8 +27,12 @@ class _HomePageState extends State<HomeView> {
   Widget build(BuildContext context) {
     return BaseView<HomeModel>(
       builder: (context, child, model) => Scaffold(
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(50),
+          child: Appbar(),
+        ),
         body: ListView.builder(
-          itemCount: model.contacts.length,
+          itemCount: myAppModel.contacts.length,
           itemBuilder: _contactCard,
         ),
         floatingActionButton: FloatingActionButton(
@@ -55,112 +57,49 @@ class _HomePageState extends State<HomeView> {
     }
   }
 
-  // Widget _ContactList(Future<List<BaseContact>> contacts) {
-  //   return Text('');
-  // }
-
   Widget _contactCard(BuildContext context, int index) {
-    var myAppModel = locator<HomeModel>();
-
-    return GestureDetector(
+    return InkWell(
+      splashColor: Colors.blueGrey,
+      onTap: () async {
+        Navigator.of(context).pushNamed('details',
+            arguments: myAppModel.contacts[index].contact.contact_id);
+      },
       child: Card(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(myAppModel.contacts[index].contact.name ?? '',
-                style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold)),
-            Text(myAppModel.contacts[index].contact.address ?? '',
-                style: TextStyle(fontSize: 16.0)),
-            // Text(
-            //   contacts[index].phone ?? '',
-            //   style: TextStyle(fontSize: 18.0)),
-          ],
+        elevation: 0.0,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              CircleAvatar(
+                radius: 25.0,
+                backgroundColor: Colors.cyan[300],
+                child: Text(
+                  (myAppModel.contacts[index].contact.name.length != 0)
+                      ? myAppModel.contacts[index].contact.name[0].toUpperCase()
+                      : '?',
+                  style: TextStyle(
+                    fontSize: 30.0,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 20),
+                child: Container(
+                  width: 140.0,
+                  child: Text(
+                    myAppModel.contacts[index].contact.name,
+                    // textAlign: TextAlign.start,
+                    style: TextStyle(fontSize: 22),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
-      onTap: () async {
-        final recContact = await Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => ContactProfileView(
-                    myAppModel.contacts[index].contact.contact_id)));
-      },
     );
-  }
-
-  // void _showOptions(BuildContext context, int index) {
-  //   showModalBottomSheet(
-  //     context: context,
-  //     builder: (context) {
-  //       return BottomSheet(
-  //         onClosing: () {},
-  //         builder: (context) {
-  //           return Container(
-  //             padding: EdgeInsets.all(10.0),
-  //             child: Column(
-  //               mainAxisSize: MainAxisSize.min,
-  //               children: <Widget>[
-  //                 Padding(
-  //                   padding: const EdgeInsets.all(10.0),
-  //                   child: TextButton(
-  //                     child: Text(
-  //                       'Ligar',
-  //                       style: TextStyle(color: Colors.red, fontSize: 20.0),
-  //                     ),
-  //                     onPressed: () {
-  //                       // launch('tel: ${contacts[index].phone}');
-  //                       // Navigator.pop(context);
-  //                     },
-  //                   ),
-  //                 ),
-  //                 Padding(
-  //                   padding: const EdgeInsets.all(10.0),
-  //                   child: TextButton(
-  //                     child: Text(
-  //                       'Editar',
-  //                       style: TextStyle(color: Colors.red, fontSize: 20.0),
-  //                     ),
-  //                     onPressed: () {
-  //                       Navigator.pop(context);
-  //                       _showContactPage(contact: contacts[index]);
-  //                     },
-  //                   ),
-  //                 ),
-  //                 // Padding(
-  //                 //   padding: const EdgeInsets.all(10.0),
-  //                 //   child: TextButton(
-  //                 //     child: Text(
-  //                 //       'Excluir',
-  //                 //       style: TextStyle(color: Colors.red, fontSize: 20.0),
-  //                 //     ),
-  //                 //     onPressed: () {
-  //                 //       helper.deleteContact(contacts[index].id);
-  //                 //       setState(() {
-  //                 //         contacts.removeAt(index);
-  //                 //         Navigator.pop(context);
-  //                 //       });
-  //                 //     },
-  //                 //   ),
-  //                 // ),
-  //               ],
-  //             ),
-  //           );
-  //         },
-  //       );
-  //     },
-  //   );
-  // }
-
-  void _showContactPage({Contact contact}) async {
-    // final recContact = await Navigator.push(context,
-    //     MaterialPageRoute(builder: (context) => ContactPage(contact: contact)));
-    // if (recContact != null) {
-    //   if (contact != null) {
-    //     await helper.updateContact(recContact);
-    //   } else {
-    //     await helper.saveContact(recContact);
-    //   }
-    //   _getAllContacts();
-    // }
   }
 
   Future<int> _getUser() async {

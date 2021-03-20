@@ -53,10 +53,9 @@ class RegistrationView extends StatelessWidget {
                                   // If the form is valid, display a Snackbar.
                                   _formKey.currentState.save();
                                   if (await model.insertUser()) {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => LoginView()));
+                                    Navigator.of(context).pushNamed(
+                                      'login',
+                                    );
                                   } else {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                         SnackBar(
@@ -78,10 +77,9 @@ class RegistrationView extends StatelessWidget {
                                 ),
                               ),
                               onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => LoginView()));
+                                Navigator.of(context).pushNamed(
+                                  'login',
+                                );
                               },
                               minWidth: double.infinity,
                               color: Colors.white,

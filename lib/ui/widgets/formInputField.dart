@@ -3,14 +3,15 @@ import 'package:flutter/material.dart';
 class InputField extends StatelessWidget {
   final Function validationHandler;
   final Function onSaveHandler;
-
   final String hintText;
   final bool hideText;
+  final String initText;
   const InputField(
       {this.validationHandler,
       this.onSaveHandler,
       this.hintText,
-      this.hideText = false});
+      this.hideText = false,
+      this.initText = ''});
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +19,7 @@ class InputField extends StatelessWidget {
       validator: validationHandler,
       onSaved: onSaveHandler,
       obscureText: hideText,
+      initialValue: initText,
       style: TextStyle(fontFamily: 'Montserrat', fontSize: 20.0),
       decoration: InputDecoration(
           contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),

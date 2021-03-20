@@ -11,14 +11,50 @@ class DatabaseQueryService {
     return await db.insert(User.tblUser, user.toMap());
   }
 
-  insertContact(Contact contact, Email email, Phone phone) async {
+  Future<int> insertContact(Contact contact, Email email, Phone phone) async {
     Database db = await _databaseHelper.database;
     int contact_id = await db.insert('contact', contact.toMap());
-    email.contact_id = 2;
-    phone.contact_id = 2;
+    email.contact_id = contact_id;
+    phone.contact_id = contact_id;
     await db.insert('email', email.toMap());
     await db.insert('phone', phone.toMap());
     return contact_id;
+  }
+
+  Future<int> insertPhone(Phone phone) async {
+    Database db = await _databaseHelper.database;
+    return await db.insert('phone', phone.toMap());
+  }
+
+  Future<int> insertEmail(Email email) async {
+    Database db = await _databaseHelper.database;
+    return await db.insert('email', email.toMap());
+  }
+
+  Future<int> updateEmail({int id, String email}) async {
+    Database db = await _databaseHelper.database;
+    return await db.rawUpdate('UPDATE email SET email = ? WHERE email_id = ?', [
+      email,
+      id,
+    ]);
+  }
+
+  Future<int> updatePhone({int id, String phone}) async {
+    Database db = await _databaseHelper.database;
+    return await db.rawUpdate('UPDATE phone SET phone = ? WHERE phone_id = ?', [
+      phone,
+      id,
+    ]);
+  }
+
+  Future<int> deletePhone(int id) async {
+    Database db = await _databaseHelper.database;
+    return await db.rawDelete('DELETE FROM phone WHERE phone_id = ?', [id]);
+  }
+
+  Future<int> deleteEmail(int id) async {
+    Database db = await _databaseHelper.database;
+    return await db.rawDelete('DELETE FROM email WHERE email_id = ?', [id]);
   }
 
   Future<List<Map>> fetchUserInformation(int id) async {
