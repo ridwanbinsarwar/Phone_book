@@ -57,6 +57,11 @@ class DatabaseQueryService {
     return await db.rawDelete('DELETE FROM email WHERE email_id = ?', [id]);
   }
 
+  Future<int> deleteContact(int id) async {
+    Database db = await _databaseHelper.database;
+    return await db.rawDelete('DELETE FROM contact WHERE contact_id = ?', [id]);
+  }
+
   Future<List<Map>> fetchUserInformation(int id) async {
     Database db = await _databaseHelper.database;
     List<Map> list = await db.rawQuery(

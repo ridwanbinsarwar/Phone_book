@@ -29,15 +29,9 @@ class HomeModel extends BaseModel {
     notifyListeners();
   }
 
-  // Future<bool> saveData() async {
-  //   setState(ViewState.Busy);
-  //   setTitle("Saving Data");
-  //   await storageService.saveData();
-  //   setTitle("Data Saved");
-  //   setState(ViewState.Retrieved);
-
-  //   return true;
-  // }
+  Future<int> deleteContact(int id) async {
+    return await _databaseHelper.deleteContact(id);
+  }
 
   void setTitle(String value) {
     title = value;

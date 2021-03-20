@@ -77,26 +77,39 @@ class _ContactProfileState extends State<ContactProfileView> {
                       onSaveHandler: ((value) => profileModel.setPhone(value)),
                       hintText: "Phone",
                     )
-                  : Text(''),
-              SubmitButton(
-                validationHandler: () async {
-                  if (addPhone && _formKey.currentState.validate()) {
-                    // If the form is valid, display a Snackbar.
-                    _formKey.currentState.save();
-                    var res = await profileModel.addPhone(widget.contactId);
-                    setState(() {
-                      user.phones.add(res);
-                      addPhone = false;
-                    });
-                  } else {
-                    setState(() {
-                      addEmail = false;
-                      addPhone = true;
-                    });
-                  }
-                },
-                text: addPhone ? "Submit" : "Add Phone",
-              ),
+                  : Container(),
+              Align(
+                  alignment: Alignment.centerRight,
+                  child: Ink(
+                      decoration: const ShapeDecoration(
+                        color: Colors.blue,
+                        shape: CircleBorder(),
+                      ),
+                      child: IconButton(
+                        icon: addPhone
+                            ? const Icon(Icons.done)
+                            : const Icon(Icons.add),
+                        iconSize: 30,
+                        highlightColor: Colors.blue[300],
+                        color: Colors.white,
+                        onPressed: () async {
+                          if (addPhone && _formKey.currentState.validate()) {
+                            // If the form is valid, display a Snackbar.
+                            _formKey.currentState.save();
+                            var res =
+                                await profileModel.addPhone(widget.contactId);
+                            setState(() {
+                              user.phones.add(res);
+                              addPhone = false;
+                            });
+                          } else {
+                            setState(() {
+                              addEmail = false;
+                              addPhone = true;
+                            });
+                          }
+                        },
+                      ))),
               ListView.builder(
                 shrinkWrap: true,
                 itemCount: user.emails.length,
@@ -113,25 +126,40 @@ class _ContactProfileState extends State<ContactProfileView> {
                       onSaveHandler: ((value) => profileModel.setEmail(value)),
                       hintText: "Email",
                     )
-                  : Text(''),
-              SubmitButton(
-                validationHandler: () async {
-                  if (addEmail && _formKey.currentState.validate()) {
-                    // If the form is valid, display a Snackbar.
-                    _formKey.currentState.save();
-                    var res = await profileModel.addEmail(widget.contactId);
-                    setState(() {
-                      user.emails.add(res);
-                      addEmail = false;
-                    });
-                  } else {
-                    setState(() {
-                      addPhone = false;
-                      addEmail = true;
-                    });
-                  }
-                },
-                text: addEmail ? "Submit" : "Add Email",
+                  : Container(),
+              Align(
+                alignment: Alignment.centerRight,
+                child: Ink(
+                  decoration: const ShapeDecoration(
+                    color: Colors.blue,
+                    shape: CircleBorder(),
+                  ),
+                  child: IconButton(
+                    icon: addEmail
+                        ? const Icon(Icons.done)
+                        : const Icon(Icons.add),
+                    iconSize: 30,
+                    highlightColor: Colors.blue[300],
+                    color: Colors.white,
+                    onPressed: () async {
+                      if (addEmail && _formKey.currentState.validate()) {
+                        // If the form is valid, display a Snackbar.
+                        _formKey.currentState.save();
+                        var res = await profileModel.addEmail(widget.contactId);
+                        setState(() {
+                          user.emails.add(res);
+                          addEmail = false;
+                        });
+                      } else {
+                        setState(() {
+                          addPhone = false;
+                          addEmail = true;
+                        });
+                      }
+                    },
+                    // text: addEmail ? "Submit" : "Add Email",
+                  ),
+                ),
               ),
             ],
           ),

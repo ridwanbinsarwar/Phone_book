@@ -24,7 +24,7 @@ class Appbar extends StatelessWidget {
             }
           },
           itemBuilder: (BuildContext context) {
-            return {'Logout'}.map((String choice) {
+            return ['Logout'].map((String choice) {
               return PopupMenuItem<String>(
                 value: choice,
                 child: Text(choice),

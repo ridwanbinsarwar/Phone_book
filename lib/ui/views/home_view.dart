@@ -64,6 +64,31 @@ class _HomePageState extends State<HomeView> {
         Navigator.of(context).pushNamed('details',
             arguments: myAppModel.contacts[index].contact.contact_id);
       },
+      onLongPress: () {
+        showMenu<String>(
+          context: context,
+          position: RelativeRect.fromLTRB(25.0, 25.0, 0.0,
+              0.0), //position where you want to show the menu on screen
+          items: [
+            PopupMenuItem<String>(child: const Text('Edit'), value: '1'),
+            PopupMenuItem<String>(child: const Text('Delete'), value: '2'),
+          ],
+          elevation: 8.0,
+        ).then<void>((String itemSelected) {
+          if (itemSelected == null) return;
+
+          if (itemSelected == "1") {
+          } else if (itemSelected == "2") {
+            myAppModel
+                .deleteContact(myAppModel.contacts[index].contact.contact_id);
+            setState(() {
+              myAppModel.contacts.removeAt(index);
+            });
+          } else {
+            //code here
+          }
+        });
+      },
       child: Card(
         elevation: 0.0,
         child: Padding(
