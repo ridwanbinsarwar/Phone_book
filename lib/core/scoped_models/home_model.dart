@@ -1,15 +1,11 @@
 import 'package:flutter_demo/core/models/contact.dart';
 import 'package:flutter_demo/core/scoped_models/base_model.dart';
 import 'package:flutter_demo/core/services/database_query_service.dart';
-import 'package:flutter_demo/core/services/storage_service.dart';
-import 'package:flutter_demo/enums/view_state.dart';
 import 'package:flutter_demo/service_locator.dart';
 
 class HomeModel extends BaseModel {
-  StorageService storageService = locator<StorageService>();
   DatabaseQueryService _databaseHelper = locator<DatabaseQueryService>();
 
-  String title = "";
   bool loaded = false;
 
   List<BaseContact> contacts = [];
@@ -33,11 +29,9 @@ class HomeModel extends BaseModel {
     return await _databaseHelper.deleteContact(id);
   }
 
-  void setTitle(String value) {
-    title = value;
-  }
-
-  String getTitle() {
-    return title;
+  void clearContact() {
+    contacts.clear();
+    loaded = false;
+    notifyListeners();
   }
 }

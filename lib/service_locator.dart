@@ -4,14 +4,14 @@ import 'package:flutter_demo/core/scoped_models/home_model.dart';
 import 'package:flutter_demo/core/scoped_models/login_model.dart';
 import 'package:flutter_demo/core/scoped_models/registration_model.dart';
 import 'package:flutter_demo/core/services/database_query_service.dart';
-import 'package:flutter_demo/core/services/storage_service.dart';
+import 'package:flutter_demo/core/services/shared_pred_service.dart';
 import 'package:get_it/get_it.dart';
 
 final GetIt locator = GetIt.instance;
 
 void setupLocator() {
   // Register services
-  locator.registerLazySingleton<StorageService>(() => StorageService());
+  locator.registerLazySingleton<SharedPrefService>(() => SharedPrefService());
   locator.registerLazySingleton<DatabaseQueryService>(
       () => DatabaseQueryService());
 

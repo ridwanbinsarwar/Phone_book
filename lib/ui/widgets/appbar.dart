@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_demo/core/services/shared_pred_service.dart';
+import 'package:flutter_demo/service_locator.dart';
 
 class Appbar extends StatelessWidget {
-  void removeSharedPrefs() async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.remove('userID');
-    return;
-  }
+  SharedPrefService _sharedPrefService = locator<SharedPrefService>();
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +14,7 @@ class Appbar extends StatelessWidget {
         PopupMenuButton<String>(
           onSelected: (String choice) {
             if (choice == 'Logout') {
-              removeSharedPrefs();
+              _sharedPrefService.removeSharedPrefs();
               Navigator.of(context).pushNamedAndRemoveUntil(
                   'login', (Route<dynamic> route) => false);
               // Navigator.of(context).pushNamed('login');

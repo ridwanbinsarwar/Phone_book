@@ -1,5 +1,6 @@
 import 'package:flutter_demo/core/models/contact.dart';
 import 'package:flutter_demo/core/scoped_models/home_model.dart';
+import 'package:flutter_demo/core/services/shared_pred_service.dart';
 import 'package:flutter_demo/enums/view_state.dart';
 import 'package:flutter_demo/service_locator.dart';
 import 'package:flutter_demo/ui/views/base_view.dart';
@@ -15,12 +16,14 @@ class HomeView extends StatefulWidget {
 
 class _HomePageState extends State<HomeView> {
   List<Contact> contacts = [];
+  SharedPrefService _sharedPrefService = locator<SharedPrefService>();
 
   var myAppModel = locator<HomeModel>();
   @override
   void initState() {
     super.initState();
-    if (!myAppModel.loaded) myAppModel.getContacts(_getUser());
+    if (!myAppModel.loaded)
+      myAppModel.getContacts(_sharedPrefService.getUser());
   }
 
   @override
@@ -125,11 +128,5 @@ class _HomePageState extends State<HomeView> {
         ),
       ),
     );
-  }
-
-  Future<int> _getUser() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    int user = (prefs.getInt('userID') ?? -1);
-    return user;
   }
 }
