@@ -1,8 +1,6 @@
 import 'dart:io';
 import 'dart:typed_data';
-
 import 'package:flutter_demo/core/scoped_models/contactForm_model.dart';
-import 'package:flutter_demo/enums/view_state.dart';
 import 'package:flutter_demo/ui/views/base_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/ui/widgets/formInputField.dart';
@@ -126,15 +124,5 @@ class ContactFormView extends StatelessWidget {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int user = (prefs.getInt('userID') ?? -1);
     return user;
-  }
-
-  Widget _getBodyUi(ViewState state) {
-    switch (state) {
-      case ViewState.Busy:
-        return CircularProgressIndicator();
-      case ViewState.Retrieved:
-      default:
-        return Text('');
-    }
   }
 }

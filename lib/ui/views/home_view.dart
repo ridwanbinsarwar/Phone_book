@@ -1,7 +1,6 @@
 import 'package:flutter_demo/core/models/contact.dart';
 import 'package:flutter_demo/core/scoped_models/home_model.dart';
 import 'package:flutter_demo/core/services/shared_pred_service.dart';
-import 'package:flutter_demo/enums/view_state.dart';
 import 'package:flutter_demo/service_locator.dart';
 import 'package:flutter_demo/ui/views/base_view.dart';
 import 'package:flutter/material.dart';
@@ -46,16 +45,6 @@ class _HomePageState extends State<HomeView> {
         ),
       ),
     );
-  }
-
-  Widget _getBodyUi(ViewState state) {
-    switch (state) {
-      case ViewState.Busy:
-        return CircularProgressIndicator();
-      case ViewState.Retrieved:
-      default:
-        return Text('');
-    }
   }
 
   Widget _contactCard(BuildContext context, int index) {
