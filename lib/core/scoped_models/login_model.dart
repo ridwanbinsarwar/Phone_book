@@ -1,10 +1,9 @@
 import 'package:flutter_demo/core/models/user.dart';
-import 'package:flutter_demo/core/scoped_models/base_model.dart';
 import 'package:flutter_demo/core/services/database_query_service.dart';
 import 'package:flutter_demo/service_locator.dart';
-import 'package:flutter_demo/utils/database_helper.dart';
+import 'package:scoped_model/scoped_model.dart';
 
-class LoginModel extends BaseModel {
+class LoginModel extends Model {
   User user = new User();
   DatabaseQueryService _databaseHelper = locator<DatabaseQueryService>();
 

@@ -1,18 +1,13 @@
 import 'package:flutter_demo/core/scoped_models/registration_model.dart';
 import 'package:flutter_demo/ui/views/base_view.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_demo/ui/views/login_view.dart';
 import 'package:flutter_demo/ui/widgets/formInputField.dart';
 import 'package:flutter_demo/ui/widgets/submit_button.dart';
-import 'package:flutter_demo/utils/database_helper.dart';
 import 'package:flutter_demo/utils/validators.dart';
 
 class RegistrationView extends StatelessWidget {
   TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
   final _formKey = GlobalKey<FormState>();
-  DatabaseHelper _databaseHelper = DatabaseHelper.instance;
-  String email;
-  String pass;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +18,7 @@ class RegistrationView extends StatelessWidget {
                   child: Container(
                     color: Colors.white,
                     child: Padding(
-                      padding: const EdgeInsets.all(36.0),
+                      padding: const EdgeInsets.all(76.0),
                       child: Form(
                         key: _formKey,
                         child: Column(
@@ -31,6 +26,12 @@ class RegistrationView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             SizedBox(height: 165.0),
+                            Text('Signup',
+                                style: TextStyle(
+                                  fontSize: 40,
+                                  color: Colors.blueGrey[600],
+                                )),
+                            SizedBox(height: 30.0),
                             InputField(
                               validationHandler: Validator.emailValidator,
                               onSaveHandler: ((value) => model.setEmail(value)),

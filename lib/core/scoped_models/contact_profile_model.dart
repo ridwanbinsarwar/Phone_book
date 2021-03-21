@@ -1,9 +1,9 @@
 import 'package:flutter_demo/core/models/contact.dart';
 import 'package:flutter_demo/core/services/database_query_service.dart';
 import 'package:flutter_demo/service_locator.dart';
-import 'base_model.dart';
+import 'package:scoped_model/scoped_model.dart';
 
-class ContactProfileModel extends BaseModel {
+class ContactProfileModel extends Model {
   BaseContact user = new BaseContact();
   DatabaseQueryService _databaseHelper = locator<DatabaseQueryService>();
   Email email = new Email();
@@ -32,7 +32,7 @@ class ContactProfileModel extends BaseModel {
       res = await _databaseHelper.insertPhone(tempPhone);
       tempPhone.phone_id = res;
     } catch (e) {
-      print('Age cannot be negative');
+      print('phone update error');
     }
     return tempPhone;
   }

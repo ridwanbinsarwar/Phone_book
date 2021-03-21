@@ -5,8 +5,8 @@ import 'package:flutter_demo/ui/views/base_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/ui/widgets/appbar.dart';
 import 'package:flutter_demo/ui/widgets/formInputField.dart';
-import 'package:flutter_demo/ui/widgets/submit_button.dart';
 import 'package:flutter_demo/utils/validators.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ContactProfileView extends StatefulWidget {
   int contactId;
@@ -56,11 +56,46 @@ class _ContactProfileState extends State<ContactProfileView> {
               SizedBox(
                 height: 20,
               ),
-              Text(user.contact.name ?? '',
-                  style:
-                      TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold)),
-              Text(user.contact.address ?? '',
-                  style: TextStyle(fontSize: 16.0)),
+              Align(
+                child: CircleAvatar(
+                  radius: 60.0,
+                  backgroundColor: Colors.blueAccent[200],
+                  child: user.contact.picture != null
+                      ? ClipRRect(
+                          borderRadius: BorderRadius.circular(60),
+                          child: Image.memory(
+                            user.contact.picture,
+                            width: 200,
+                            height: 200,
+                            fit: BoxFit.cover,
+                          ),
+                        )
+                      : Container(
+                          decoration: BoxDecoration(
+                            color: Colors.lightBlueAccent.shade100,
+                            borderRadius: BorderRadius.circular(60),
+                          ),
+                          width: 200,
+                          height: 200,
+                          child: Icon(
+                            Icons.camera_alt,
+                            color: Colors.white,
+                          ),
+                        ),
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Align(
+                child: Text(user.contact.name ?? '',
+                    style:
+                        TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold)),
+              ),
+              Align(
+                child: Text(user.contact.address ?? '',
+                    style: TextStyle(fontSize: 16.0)),
+              ),
               ListView.builder(
                 shrinkWrap: true,
                 itemCount: user.phones.length,
@@ -315,7 +350,10 @@ class _listCardState extends State<ListCard> {
                   child: IconButton(
                     icon: const Icon(Icons.phone),
                     tooltip: 'call',
-                    onPressed: () {},
+                    onPressed: () {
+                      _launchURL(
+                          'tel: ${widget.user.phones[widget.index].phone}');
+                    },
                   ),
                   visible: widget.type == 'email' ? false : true,
                 ),
@@ -325,7 +363,10 @@ class _listCardState extends State<ListCard> {
                 child: IconButton(
                   icon: const Icon(Icons.message),
                   tooltip: 'message',
-                  onPressed: () {},
+                  onPressed: () {
+                    _launchURL(
+                        'sms: ${widget.user.phones[widget.index].phone}');
+                  },
                 ),
               )
             ],
@@ -334,4 +375,7 @@ class _listCardState extends State<ListCard> {
       ),
     );
   }
+
+  void _launchURL(_url) async =>
+      await canLaunch(_url) ? await launch(_url) : throw 'Error in $_url';
 }

@@ -17,4 +17,9 @@ class SharedPrefService {
     myAppModel.clearContact();
     return;
   }
+
+  void setUser(userID) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('userID', userID);
+  }
 }

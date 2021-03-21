@@ -1,11 +1,12 @@
+import 'dart:typed_data';
+
 import 'package:flutter_demo/core/models/contact.dart';
 import 'package:flutter_demo/core/scoped_models/home_model.dart';
 import 'package:flutter_demo/core/services/database_query_service.dart';
 import 'package:flutter_demo/service_locator.dart';
-import 'package:flutter_demo/utils/database_helper.dart';
-import 'base_model.dart';
+import 'package:scoped_model/scoped_model.dart';
 
-class ContactFormModel extends BaseModel {
+class ContactFormModel extends Model {
   Contact contact = new Contact();
   Email email = new Email();
   Phone phone = new Phone();
@@ -28,12 +29,14 @@ class ContactFormModel extends BaseModel {
     notifyListeners();
   }
 
-  // String getEmail() {
-  //   if (email.email != null) {
-  //     return email.email;
-  //   } else
-  //     return 'empty';
-  // }
+  void setPicture(value) {
+    contact.picture = value;
+    notifyListeners();
+  }
+
+  Uint8List getPicture() {
+    return contact.picture;
+  }
 
   void setPhone(value) {
     phone.phone = value;

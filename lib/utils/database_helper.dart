@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:flutter_demo/core/models/contact.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
@@ -66,6 +65,7 @@ class DatabaseHelper {
               user_id INTEGER NOT NULL,
               address TEXT NOT NULL,
               name TEXT NOT NULL,
+              picture BLOB,
               FOREIGN KEY (user_id) REFERENCES ${User.tblUser} (${User.colId}) 
                 ON DELETE NO ACTION ON UPDATE NO ACTION
             )""");

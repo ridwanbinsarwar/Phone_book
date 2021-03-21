@@ -1,9 +1,9 @@
 import 'package:flutter_demo/core/models/contact.dart';
-import 'package:flutter_demo/core/scoped_models/base_model.dart';
 import 'package:flutter_demo/core/services/database_query_service.dart';
 import 'package:flutter_demo/service_locator.dart';
+import 'package:scoped_model/scoped_model.dart';
 
-class HomeModel extends BaseModel {
+class HomeModel extends Model {
   DatabaseQueryService _databaseHelper = locator<DatabaseQueryService>();
   bool loaded = false;
   List<BaseContact> contacts = [];
